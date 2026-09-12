@@ -1,0 +1,19 @@
+# Working data file (live changes)
+data/library.yml
+
+# Test coverage reports
+coverage/
+
+# Bundler
+/.bundle/
+/vendor/bundle/
+
+# Ruby LSP and IDE
+.ruby-lsp/
+.vscode/
+.idea/
+
+# OS artifacts
+.DS_Store
+*.swp
+*~
