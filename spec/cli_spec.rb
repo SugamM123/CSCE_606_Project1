@@ -1,0 +1,74 @@
+# frozen_string_literal: true
+
+require 'stringio'
+require_relative '../lib/cli'
+
+RSpec.describe Cli do
+  def run_cli_with(input_text)
+    input = StringIO.new(input_text)
+    output = StringIO.new
+    described_class.new(input: input, output: output).run
+    output.string
+  end
+
+  describe 'menu display' do
+    it 'shows all core feature options' do
+      output = run_cli_with("7\n")
+
+      expect(output).to include('Add a book')
+      expect(output).to include('Add a member')
+      expect(output).to include('Check out a book')
+      expect(output).to include('Check in (return) a book')
+      expect(output).to include('Search catalog')
+      expect(output).to include('List checked-out books')
+      expect(output).to include('Exit')
+    end
+  end
+
+  describe 'routing (happy path)' do
+    it 'routes option 1 to the add book action' do
+      output = run_cli_with("1\n7\n")
+
+      expect(output).to include('[Add book not yet implemented')
+    end
+
+    it 'routes option 5 to the search action' do
+      output = run_cli_with("5\n7\n")
+
+      expect(output).to include('[Search not yet implemented')
+    end
+  end
+
+  describe 'exit option (happy path)' do
+    it 'prints a goodbye message and stops the loop on option 7' do
+      output = run_cli_with("7\n")
+
+      expect(output).to include('Goodbye!')
+    end
+
+    it 'does not loop forever once exit is chosen' do
+      # if this test hangs, the loop isn't breaking correctly
+      expect { run_cli_with("7\n") }.not_to raise_error
+    end
+  end
+
+  describe 'invalid input (sad path)' do
+    it 'shows an error message for an unrecognized option' do
+      output = run_cli_with("9\n7\n")
+
+      expect(output).to include('Invalid option, please try again.')
+    end
+
+    it 're-displays the menu after an invalid option instead of crashing' do
+      output = run_cli_with("9\n7\n")
+
+      expect(output.scan('==== Library Manager ====').size).to eq(2)
+    end
+  end
+
+  describe 'empty input stream (sad path)' do
+    it 'exits gracefully when input runs out without a 7' do
+      expect { run_cli_with('') }.not_to raise_error
+    end
+  end
+end
