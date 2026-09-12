@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
-# Books in library
+
 class Book
   STATUS_AVAILABLE = 'available'
   STATUS_CHECKED_OUT = 'checked_out'
 
   attr_accessor :id, :title, :author, :status
 
+  # :id or :isbn support
   def initialize(*args, **kwargs)
     if args.any?
       @id = args[0]
@@ -21,20 +22,20 @@ class Book
     end
   end
 
-
   def available?
     status == STATUS_AVAILABLE
   end
-
 
   def checkedOut?
     status == STATUS_CHECKED_OUT
   end
   alias checked_out? checkedOut?
 
+  # isbn and id support
   alias isbn id
   alias isbn= id=
 
+  # hash formattng
   def toHash
     {
       'id' => id,
@@ -45,6 +46,9 @@ class Book
   end
   alias to_h toHash
 
+  
+
+  ## build instance
   def self.fromHash(hash)
     return nil unless hash
 
@@ -57,6 +61,7 @@ class Book
   end
   singleton_class.alias_method :from_h, :fromHash
 
+  # comparing book attributes
   def ==(other)
     other.is_a?(Book) &&
       id == other.id &&
