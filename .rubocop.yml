@@ -1,0 +1,7 @@
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+
+Style/Documentation:
+  Exclude:
+    - 'spec/**/*'
