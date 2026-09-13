@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
+require_relative 'library'
+
 # Command-line interface for the Library Manager: displays the menu,
 # reads user input, and routes to the corresponding action.
 class Cli
-  def initialize(input: $stdin, output: $stdout)
+  def initialize(input: $stdin, output: $stdout, library: Library.new)
     @input = input
     @output = output
+    @library = library
   end
 
   def run
@@ -52,13 +55,21 @@ class Cli
     }
   end
 
+  def prompt(label)
+    @output.print(label)
+    @input.gets&.strip
+  end
+
   # --- Actions below are stubbed until the Library class exists ---
   #  Once Library is built, these will look roughly like:
   #     book = Book.new(id: next_id, title: title, author: author)
   #     @library.add_book(book)
 
   def add_book
-    @output.puts '[Add book not yet implemented - waiting on Library class]'
+    title = prompt('Title: ')
+    author = prompt('Author: ')
+    book = @library.add_book(title, author)
+    @output.puts "Added: #{book.title} by #{book.author} (ID: #{book.id})"
   end
 
   def add_member
