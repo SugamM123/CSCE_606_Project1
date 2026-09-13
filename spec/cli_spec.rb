@@ -26,10 +26,10 @@ RSpec.describe Cli do
   end
 
   describe 'routing (happy path)' do
-    it 'routes option 1 to the add book action' do
-      output = run_cli_with("1\n7\n")
+    it 'adds a book with the entered title and author' do
+      output = run_cli_with("1\nThe Hobbit\nJ.R.R. Tolkien\n7\n")
 
-      expect(output).to include('[Add book not yet implemented')
+      expect(output).to include('Added: The Hobbit by J.R.R. Tolkien')
     end
 
     it 'routes option 5 to the search action' do
