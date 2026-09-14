@@ -73,7 +73,12 @@ class Cli
   end
 
   def add_member
-    @output.puts '[Add member not yet implemented - waiting on Library class]'
+    name = prompt('Name: ')
+    id = prompt('Member ID: ')
+    member = @library.add_member(name, id)
+    @output.puts "Added member: #{member.name} (ID: #{member.id})"
+  rescue ArgumentError => e
+    @output.puts "Error: #{e.message}"
   end
 
   def checkout_book
