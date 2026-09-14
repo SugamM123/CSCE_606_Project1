@@ -97,3 +97,49 @@
   - [ ] Test harness set up and executable from command line.
   - [ ] Unit tests for Book, Member, and Loan models.
   - [ ] Functional/integration tests for checkout, return, search, and YAML I/O.
+
+---
+
+### 12. Chore: Autocorrect RuboCop style offenses (0.5 pts)
+- **User Story**: As a developer, I want RuboCop's auto-fixable style offenses corrected so that the codebase follows consistent formatting.
+- **Acceptance Criteria**:
+  - [ ] Run `rubocop -A` across `lib/` and `spec/`.
+  - [ ] Confirm all tests still pass after autocorrect.
+  - [ ] No remaining auto-fixable offenses.
+
+---
+
+### 13. Refactor: Rename camelCase methods/attrs to snake_case in Book, Loan, Member (1.5 pts)
+- **User Story**: As a developer, I want method and attribute names to follow Ruby's snake_case convention so that the codebase passes RuboCop naming checks and reads idiomatically.
+- **Acceptance Criteria**:
+  - [ ] Rename `checkedOut?`, `toHash`, `fromHash` (and equivalents in Loan/Member) to snake_case.
+  - [ ] Rename `bookId`, `memberId`, `dueDate`, `returnDate` attributes to snake_case.
+  - [ ] Update all specs referencing the old names.
+  - [ ] Full test suite passes after rename.
+
+---
+
+### 14. Refactor: Simplify Loan#initialize (AbcSize/complexity) (2 pts)
+- **User Story**: As a developer, I want Loan#initialize simplified so that it passes RuboCop's complexity thresholds and is easier to maintain.
+- **Acceptance Criteria**:
+  - [ ] Reduce AbcSize below 17 (currently 34.37).
+  - [ ] Reduce cyclomatic/perceived complexity below their thresholds.
+  - [ ] Extract helper method(s) for resolving book/member id from object-or-raw-id inputs.
+  - [ ] Existing Loan specs still pass unchanged.
+
+---
+
+### 15. Refactor: Simplify Book.fromHash and Loan.fromHash complexity (1 pt)
+- **User Story**: As a developer, I want fromHash simplified so that it passes RuboCop's complexity thresholds.
+- **Acceptance Criteria**:
+  - [ ] Reduce cyclomatic/perceived complexity on both fromHash methods.
+  - [ ] Extract shared helper for checking multiple hash key variants (string/symbol/camelCase/snake_case).
+  - [ ] Existing serialization specs still pass.
+
+---
+
+### 16. Docs: Add class-level documentation comments to Book and Member (0.5 pts)
+- **User Story**: As a developer, I want top-level doc comments on Book and Member so that RuboCop's documentation check passes and the classes are self-explanatory.
+- **Acceptance Criteria**:
+  - [ ] Add one-line class comment to `Book`.
+  - [ ] Add one-line class comment to `Member`.
