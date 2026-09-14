@@ -31,9 +31,9 @@
 ### 4. Feature: Add a new member to system (2 pts)
 - **User Story**: As a librarian, I want to add a new member to the system so that they can check out books.
 - **Acceptance Criteria**:
-  - [ ] Prompt user for member details (name, member ID).
-  - [ ] Validate member ID uniqueness.
-  - [ ] Append new member to storage and display confirmation.
+  - [x] Prompt user for member details (name, member ID).
+  - [x] Validate member ID uniqueness.
+  - [x] Append new member to storage and display confirmation.
 
 ---
 
