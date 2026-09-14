@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
-
 class Member
   attr_accessor :id, :name
-
 
   def initialize(*args, **kwargs)
     if args.any?
@@ -15,8 +13,7 @@ class Member
     end
   end
 
-  
-  # member to hash 
+  # member to hash
   def toHash
     {
       'id' => id,
@@ -24,7 +21,6 @@ class Member
     }
   end
   alias to_h toHash
-
 
   # builds member from hash
   def self.fromHash(hash)
@@ -36,7 +32,6 @@ class Member
     )
   end
   singleton_class.alias_method :from_h, :fromHash
-
 
   def ==(other)
     other.is_a?(Member) &&

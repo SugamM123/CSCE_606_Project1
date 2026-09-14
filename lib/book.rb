@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-
 class Book
   STATUS_AVAILABLE = 'available'
   STATUS_CHECKED_OUT = 'checked_out'
@@ -45,8 +44,6 @@ class Book
     }
   end
   alias to_h toHash
-
-  
 
   ## build instance
   def self.fromHash(hash)

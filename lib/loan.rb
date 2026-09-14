@@ -19,7 +19,6 @@ class Loan
   alias return_date returnDate
   alias return_date= returnDate=
 
-  
   def initialize(*args, **kwargs)
     if args.any?
       @bookId = args[0].respond_to?(:id) ? args[0].id : args[0]
@@ -28,7 +27,7 @@ class Loan
       @status = args[3] || STATUS_ACTIVE
       @returnDate = args[4]
     else
-      # extract ID 
+      # extract ID
       # if a model instance was passed in, otherwise use raw ID
       book_val = kwargs[:bookId] || kwargs[:book_id] || kwargs[:book]
       @bookId = book_val.respond_to?(:id) ? book_val.id : book_val
@@ -50,7 +49,7 @@ class Loan
     status == STATUS_RETURNED
   end
 
-  # checks past due date. 
+  # checks past due date.
   # upports both Date objects and strings.
   def overdue?(as_of = Date.today)
     return false unless active?
@@ -60,7 +59,7 @@ class Loan
     current = as_of.is_a?(Date) ? as_of : Date.parse(as_of.to_s)
     current > date
   rescue ArgumentError
-    false 
+    false
   end
 
   # return hash format
