@@ -32,6 +32,12 @@ RSpec.describe Cli do
       expect(output).to include('Added: The Hobbit by J.R.R. Tolkien')
     end
 
+    it 'adds a member with the entered name and member id' do
+      output = run_cli_with("2\nAlice Smith\n101\n7\n")
+
+      expect(output).to include('Added member: Alice Smith (ID: 101)')
+    end
+
     it 'routes option 5 to the search action' do
       output = run_cli_with("5\n7\n")
 
@@ -57,6 +63,13 @@ RSpec.describe Cli do
       output = run_cli_with("9\n7\n")
 
       expect(output).to include('Invalid option, please try again.')
+    end
+
+    it 'shows an error message when adding a member with an existing member id' do
+      output = run_cli_with("2\nAlice Smith\n101\n2\nBob Jones\n101\n7\n")
+
+      expect(output).to include('Added member: Alice Smith (ID: 101)')
+      expect(output).to include('Error: Member with ID 101 already exists')
     end
 
     it 're-displays the menu after an invalid option instead of crashing' do

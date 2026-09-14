@@ -6,7 +6,7 @@
 | 6 | Feature: Command-line interface and menu navigation | 2 | Jason | Done |
 | 7 | Feature: Add a new book to catalog | 2 | Jason | Done |
 | 20 | Chore: Autocorrect RuboCop style offenses (blank lines, whitespace, frozen string literal) | 0.5 | Jason | Done |
-| 8 | Feature: Add a new member to system | 2 | Sugam | Todo |
+| 8 | Feature: Add a new member to system | 2 | Sugam | Done |
 | 9 | Feature: Check out a book to a member | 3 | Jason | In Progress |
 | 10 | Feature: Check in (return) a book | 2 | Sugam | Todo |
 | 11 | Feature: Search catalog by title or author | 2 | Sugam | Todo |
