@@ -86,4 +86,72 @@ RSpec.describe Library do
       expect(library.find_member(999)).to be_nil
     end
   end
+
+  describe '#find_book' do
+    it 'returns the book when found by integer or string id' do
+      library = described_class.new
+      book = library.add_book('Dune', 'Frank Herbert')
+
+      expect(library.find_book(book.id)).to eq(book)
+      expect(library.find_book(book.id.to_s)).to eq(book)
+    end
+
+    it 'returns nil when book is not found' do
+      library = described_class.new
+      expect(library.find_book(999)).to be_nil
+    end
+  end
+
+  describe '#return_book' do
+    let(:library) { described_class.new }
+    let(:book) { library.add_book('1984', 'George Orwell') }
+    let(:member) { library.add_member('Alice', 101) }
+
+    before do
+      book.status = Book::STATUS_CHECKED_OUT
+      library.add_loan(Loan.new(book_id: book.id, member_id: member.id, due_date: '2026-09-30'))
+    end
+
+    it 'locates the active loan and updates its status to returned' do
+      library.return_book(book.id)
+      loan = library.loans.first
+
+      expect(loan.status).to eq('returned')
+      expect(loan.returned?).to be true
+    end
+
+    it 'sets the return_date on the loan' do
+      library.return_book(book.id, '2026-09-20')
+      loan = library.loans.first
+
+      expect(loan.return_date).to eq('2026-09-20')
+    end
+
+    it 'does NOT delete the loan record from storage' do
+      library.return_book(book.id)
+
+      expect(library.loans.size).to eq(1)
+    end
+
+    it 'updates the book availability status back to available' do
+      returned_book = library.return_book(book.id)
+
+      expect(returned_book.available?).to be true
+      expect(book.status).to eq(Book::STATUS_AVAILABLE)
+    end
+
+    it 'works when book id is passed as a string' do
+      library.return_book(book.id.to_s)
+
+      expect(book.available?).to be true
+    end
+
+    it 'raises an ArgumentError when no active loan exists for the book' do
+      other_book = library.add_book('The Hobbit', 'J.R.R. Tolkien')
+
+      expect do
+        library.return_book(other_book.id)
+      end.to raise_error(ArgumentError, /no active loan found/i)
+    end
+  end
 end

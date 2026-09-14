@@ -4,10 +4,10 @@ require 'stringio'
 require_relative '../lib/cli'
 
 RSpec.describe Cli do
-  def run_cli_with(input_text)
+  def run_cli_with(input_text, library: Library.new)
     input = StringIO.new(input_text)
     output = StringIO.new
-    described_class.new(input: input, output: output).run
+    described_class.new(input: input, output: output, library: library).run
     output.string
   end
 
@@ -36,6 +36,18 @@ RSpec.describe Cli do
       output = run_cli_with("2\nAlice Smith\n101\n7\n")
 
       expect(output).to include('Added member: Alice Smith (ID: 101)')
+    end
+
+    it 'returns a checked-out book with the entered book id' do
+      library = Library.new
+      book = library.add_book('The Hobbit', 'J.R.R. Tolkien')
+      member = library.add_member('Alice', 101)
+      book.status = Book::STATUS_CHECKED_OUT
+      library.add_loan(Loan.new(book_id: book.id, member_id: member.id, due_date: '2026-09-30'))
+
+      output = run_cli_with("4\n#{book.id}\n7\n", library: library)
+
+      expect(output).to include("Returned: The Hobbit (ID: #{book.id})")
     end
 
     it 'routes option 5 to the search action' do
@@ -70,6 +82,12 @@ RSpec.describe Cli do
 
       expect(output).to include('Added member: Alice Smith (ID: 101)')
       expect(output).to include('Error: Member with ID 101 already exists')
+    end
+
+    it 'shows an error message when returning a book with no active loan' do
+      output = run_cli_with("4\n999\n7\n")
+
+      expect(output).to include('Error: No active loan found for book ID 999')
     end
 
     it 're-displays the menu after an invalid option instead of crashing' do

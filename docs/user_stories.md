@@ -49,9 +49,9 @@
 ### 6. Feature: Check in (return) a book (2 pts)
 - **User Story**: As a librarian, I want to check in (return) a book so that the loan is marked returned and the book becomes available again.
 - **Acceptance Criteria**:
-  - [ ] Locate active loan for the specified book.
-  - [ ] Update loan status to 'returned' and set 'return_date' (do NOT delete loan record).
-  - [ ] Update book availability status back to available.
+  - [x] Locate active loan for the specified book.
+  - [x] Update loan status to 'returned' and set 'return_date' (do NOT delete loan record).
+  - [x] Update book availability status back to available.
 
 ---
 

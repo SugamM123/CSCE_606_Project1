@@ -8,7 +8,7 @@
 | 20 | Chore: Autocorrect RuboCop style offenses (blank lines, whitespace, frozen string literal) | 0.5 | Jason | Done |
 | 8 | Feature: Add a new member to system | 2 | Sugam | Done |
 | 9 | Feature: Check out a book to a member | 3 | Jason | In Progress |
-| 10 | Feature: Check in (return) a book | 2 | Sugam | Todo |
+| 10 | Feature: Check in (return) a book | 2 | Sugam | Done |
 | 11 | Feature: Search catalog by title or author | 2 | Sugam | Todo |
 | 12 | Feature: List all checked-out books with due dates | 2 | Jason | Todo |
 | 13 | Infrastructure: Persist catalog, member, and loan data to YAML | 3 | Jason | Todo |
