@@ -86,7 +86,11 @@ class Cli
   end
 
   def return_book
-    @output.puts '[Return not yet implemented - waiting on Library class]'
+    book_id = prompt('Book ID: ')
+    book = @library.return_book(book_id)
+    @output.puts "Returned: #{book.title} (ID: #{book.id})"
+  rescue ArgumentError => e
+    @output.puts "Error: #{e.message}"
   end
 
   def search_catalog
