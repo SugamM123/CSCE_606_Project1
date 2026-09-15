@@ -1,0 +1,60 @@
+# Seed data for Library Management System
+# Contains initial baseline books, members, and loan records.
+
+books:
+  - id: 1
+    title: "The Hobbit"
+    author: "J.R.R. Tolkien"
+    status: "available"
+  - id: 2
+    title: "1984"
+    author: "George Orwell"
+    status: "checked_out"
+  - id: 3
+    title: "To Kill a Mockingbird"
+    author: "Harper Lee"
+    status: "available"
+  - id: 4
+    title: "The Great Gatsby"
+    author: "F. Scott Fitzgerald"
+    status: "checked_out"
+  - id: 5
+    title: "Dune"
+    author: "Frank Herbert"
+    status: "available"
+  - id: 6
+    title: "Pride and Prejudice"
+    author: "Jane Austen"
+    status: "available"
+
+members:
+  - id: 101
+    name: "Alice Smith"
+  - id: 102
+    name: "Bob Jones"
+  - id: 103
+    name: "Carol Williams"
+  - id: 104
+    name: "David Brown"
+
+loans:
+  # Active loan (on schedule)
+  - book_id: 2
+    member_id: 101
+    due_date: "2026-10-01"
+    status: "active"
+    return_date: null
+
+  # Active loan (overdue for testing overdue tracking)
+  - book_id: 4
+    member_id: 102
+    due_date: "2026-09-01"
+    status: "active"
+    return_date: null
+
+  # Completed / returned loan (history preserved)
+  - book_id: 3
+    member_id: 103
+    due_date: "2026-09-15"
+    status: "returned"
+    return_date: "2026-09-10"

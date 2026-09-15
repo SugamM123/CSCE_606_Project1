@@ -18,6 +18,6 @@
 | 21 | Refactor: Rename camelCase methods/attrs to snake_case in Book, Loan, Member | 1.5 | Sugam | Todo |
 | 23 | Refactor: Simplify Book.fromHash and Loan.fromHash complexity | 1 | Sugam | Todo |
 | 22 | Refactor: Simplify Loan#initialize (AbcSize/complexity) | 2 | Sugam | Todo |
-| 28 | Infrastructure: Seed sample data for testing | 2 | Sugam | Todo |
+| 28 | Infrastructure: Seed sample data for testing | 2 | Sugam | Done |
 
 **Total Points**: 33.5 (Jason: 15.5, Sugam: 18)

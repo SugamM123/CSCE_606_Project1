@@ -149,8 +149,8 @@
 ### 17. Infrastructure: Seed sample data for testing (2 pts)
 - **User Story**: As a developer/tester, I want sample seed data (books, members, loans) so that I can easily test and demonstrate all library workflows without manual setup every time.
 - **Acceptance Criteria**:
-  - [ ] Provide YAML seed file containing sample books with various statuses (available, checked out).
-  - [ ] Provide sample members with distinct IDs and names.
-  - [ ] Provide sample active, overdue, and returned loans.
-  - [ ] Ensure data matches the domain model attributes and schemas.
+  - [x] Provide YAML seed file containing sample books with various statuses (available, checked out).
+  - [x] Provide sample members with distinct IDs and names.
+  - [x] Provide sample active, overdue, and returned loans.
+  - [x] Ensure data matches the domain model attributes and schemas.
 
