@@ -49,9 +49,9 @@
 ### 6. Feature: Check in (return) a book (2 pts)
 - **User Story**: As a librarian, I want to check in (return) a book so that the loan is marked returned and the book becomes available again.
 - **Acceptance Criteria**:
-  - [ ] Locate active loan for the specified book.
-  - [ ] Update loan status to 'returned' and set 'return_date' (do NOT delete loan record).
-  - [ ] Update book availability status back to available.
+  - [x] Locate active loan for the specified book.
+  - [x] Update loan status to 'returned' and set 'return_date' (do NOT delete loan record).
+  - [x] Update book availability status back to available.
 
 ---
 
@@ -143,3 +143,14 @@
 - **Acceptance Criteria**:
   - [ ] Add one-line class comment to `Book`.
   - [ ] Add one-line class comment to `Member`.
+
+---
+
+### 17. Infrastructure: Seed sample data for testing (2 pts)
+- **User Story**: As a developer/tester, I want sample seed data (books, members, loans) so that I can easily test and demonstrate all library workflows without manual setup every time.
+- **Acceptance Criteria**:
+  - [ ] Provide YAML seed file containing sample books with various statuses (available, checked out).
+  - [ ] Provide sample members with distinct IDs and names.
+  - [ ] Provide sample active, overdue, and returned loans.
+  - [ ] Ensure data matches the domain model attributes and schemas.
+
