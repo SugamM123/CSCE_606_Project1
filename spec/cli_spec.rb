@@ -2,12 +2,20 @@
 
 require 'stringio'
 require_relative '../lib/cli'
+require_relative '../lib/library'
 
 RSpec.describe Cli do
   def run_cli_with(input_text)
     input = StringIO.new(input_text)
     output = StringIO.new
     described_class.new(input: input, output: output).run
+    output.string
+  end
+
+  def run_cli_with_library(input_text, library)
+    input = StringIO.new(input_text)
+    output = StringIO.new
+    described_class.new(input: input, output: output, library: library).run
     output.string
   end
 
@@ -42,6 +50,25 @@ RSpec.describe Cli do
       output = run_cli_with("5\n7\n")
 
       expect(output).to include('[Search not yet implemented')
+    end
+
+    it 'checks out a book to a member' do
+      library = Library.new
+      library.add_book('Dune', 'Frank Herbert')
+      library.add_member('Alice', '1')
+
+      output = run_cli_with_library("3\n1\n1\n7\n", library)
+
+      expect(output).to include('Checked out to member 1')
+    end
+
+    it 'shows an error when checking out a nonexistent book' do
+      library = Library.new
+      library.add_member('Alice', '1')
+
+      output = run_cli_with_library("3\n999\n1\n7\n", library)
+
+      expect(output).to include('Error: Book with ID 999 not found')
     end
   end
 
