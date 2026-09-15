@@ -7,7 +7,7 @@
 | 7 | Feature: Add a new book to catalog | 2 | Jason | Done |
 | 20 | Chore: Autocorrect RuboCop style offenses (blank lines, whitespace, frozen string literal) | 0.5 | Jason | Done |
 | 8 | Feature: Add a new member to system | 2 | Sugam | Done |
-| 9 | Feature: Check out a book to a member | 3 | Jason | In Progress |
+| 9 | Feature: Check out a book to a member | 3 | Jason | In Review |
 | 10 | Feature: Check in (return) a book | 2 | Sugam | Done |
 | 11 | Feature: Search catalog by title or author | 2 | Sugam | Todo |
 | 12 | Feature: List all checked-out books with due dates | 2 | Jason | Todo |

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../lib/library'
+require_relative '../lib/loan'
 
 RSpec.describe Library do
   describe '#add_book' do
@@ -99,6 +100,45 @@ RSpec.describe Library do
     it 'returns nil when book is not found' do
       library = described_class.new
       expect(library.find_book(999)).to be_nil
+    end
+  end
+
+  describe '#checkout_book' do
+    it 'checks out an available book to an existing member' do
+      library = described_class.new
+      book = library.add_book('Dune', 'Frank Herbert')
+      member = library.add_member('Alice', '1')
+
+      loan = library.checkout_book(book.id, member.id)
+
+      expect(loan).to be_a(Loan)
+      expect(book.checked_out?).to be true
+    end
+
+    it 'raises an error when the book does not exist' do
+      library = described_class.new
+      member = library.add_member('Alice', '1')
+
+      expect { library.checkout_book(999, member.id) }
+        .to raise_error(ArgumentError, /Book with ID 999 not found/)
+    end
+
+    it 'raises an error when the member does not exist' do
+      library = described_class.new
+      book = library.add_book('Dune', 'Frank Herbert')
+
+      expect { library.checkout_book(book.id, 999) }
+        .to raise_error(ArgumentError, /Member with ID 999 not found/)
+    end
+
+    it 'raises an error when the book is already checked out' do
+      library = described_class.new
+      book = library.add_book('Dune', 'Frank Herbert')
+      member = library.add_member('Alice', '1')
+      library.checkout_book(book.id, member.id)
+
+      expect { library.checkout_book(book.id, member.id) }
+        .to raise_error(ArgumentError, /already checked out/)
     end
   end
 

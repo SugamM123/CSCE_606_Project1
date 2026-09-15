@@ -7,6 +7,8 @@ require_relative 'loan'
 
 # manages books and members
 class Library
+  DEFAULT_LOAN_DAYS = 14
+
   def initialize
     @books = []
     @members = []
@@ -50,8 +52,18 @@ class Library
     end
   end
 
-  def loans
-    @loans.dup
+  def checkout_book(book_id, member_id, due_date: Date.today + DEFAULT_LOAN_DAYS)
+    book = find_book(book_id)
+    member = find_member(member_id)
+
+    raise ArgumentError, "Book with ID #{book_id} not found" unless book
+    raise ArgumentError, "Member with ID #{member_id} not found" unless member
+    raise ArgumentError, "Book '#{book.title}' is already checked out" unless book.available?
+
+    book.status = Book::STATUS_CHECKED_OUT
+    loan = Loan.new(book_id: book.id, member_id: member.id, due_date: due_date)
+    @loans << loan
+    loan
   end
 
   def add_loan(loan)
@@ -77,6 +89,10 @@ class Library
     book.status = Book::STATUS_AVAILABLE if book
 
     book || loan
+  end
+
+  def loans
+    @loans.dup
   end
 
   private

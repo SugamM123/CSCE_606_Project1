@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'library'
+require_relative 'loan'
 
 # Command-line interface for the Library Manager: displays the menu,
 # reads user input, and routes to the corresponding action.
@@ -82,7 +83,12 @@ class Cli
   end
 
   def checkout_book
-    @output.puts '[Checkout not yet implemented - waiting on Library class]'
+    book_id = prompt('Book ID: ')
+    member_id = prompt('Member ID: ')
+    loan = @library.checkout_book(book_id, member_id)
+    @output.puts "Checked out to member #{member_id}, due #{loan.due_date}"
+  rescue ArgumentError => e
+    @output.puts "Error: #{e.message}"
   end
 
   def return_book
