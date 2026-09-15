@@ -3,9 +3,9 @@
 ### 1. Setup: Define Book, Member, and Loan domain classes (3 pts)
 - **User Story**: As a developer, I want to define the Book, Member, and Loan classes so that book, member, and loan data has a structured foundation.
 - **Acceptance Criteria**:
-  - [ ] Define `Book` model with attributes (`id`, `title`, `author`, `status`).
-  - [ ] Define `Member` model with attributes (`id`, `name`).
-  - [ ] Define `Loan` model with tracking attributes (`book_id`, `member_id`, `due_date`, `status`, `return_date`).
+  - [x] Define `Book` model with attributes (`id`, `title`, `author`, `status`).
+  - [x] Define `Member` model with attributes (`id`, `name`).
+  - [x] Define `Loan` model with tracking attributes (`book_id`, `member_id`, `due_date`, `status`, `return_date`).
 - **Notes**: Candidate for pair programming (graded rubric item).
 
 ---
@@ -13,18 +13,18 @@
 ### 2. Feature: Command-line interface and menu navigation (2 pts)
 - **User Story**: As a user, I want a command-line menu so that I can navigate the app's features.
 - **Acceptance Criteria**:
-  - [ ] Display interactive menu with options for all core features.
-  - [ ] Read and route user input to corresponding operations.
-  - [ ] Provide a clean exit option.
+  - [x] Display interactive menu with options for all core features.
+  - [x] Read and route user input to corresponding operations.
+  - [x] Provide a clean exit option.
 
 ---
 
 ### 3. Feature: Add a new book to catalog (2 pts)
 - **User Story**: As a librarian, I want to add a new book to the catalog so that it becomes available for checkout.
 - **Acceptance Criteria**:
-  - [ ] Prompt user for book title and author.
-  - [ ] Generate unique book identifier and set initial status to available.
-  - [ ] Append record to catalog and return confirmation message.
+  - [x] Prompt user for book title and author.
+  - [x] Generate unique book identifier and set initial status to available.
+  - [x] Append record to catalog and return confirmation message.
 
 ---
 
@@ -40,9 +40,9 @@
 ### 5. Feature: Check out a book to a member (3 pts)
 - **User Story**: As a librarian, I want to check out a book to a member so that its availability and loan info are tracked.
 - **Acceptance Criteria**:
-  - [ ] Verify member exists and book is currently available.
-  - [ ] Update book availability status to checked out.
-  - [ ] Create new active Loan record with calculated due date.
+  - [x] Verify member exists and book is currently available.
+  - [x] Update book availability status to checked out.
+  - [x] Create new active Loan record with calculated due date.
 
 ---
 
@@ -103,9 +103,9 @@
 ### 12. Chore: Autocorrect RuboCop style offenses (0.5 pts)
 - **User Story**: As a developer, I want RuboCop's auto-fixable style offenses corrected so that the codebase follows consistent formatting.
 - **Acceptance Criteria**:
-  - [ ] Run `rubocop -A` across `lib/` and `spec/`.
-  - [ ] Confirm all tests still pass after autocorrect.
-  - [ ] No remaining auto-fixable offenses.
+  - [x] Run `rubocop -A` across `lib/` and `spec/`.
+  - [x] Confirm all tests still pass after autocorrect.
+  - [x] No remaining auto-fixable offenses.
 
 ---
 
