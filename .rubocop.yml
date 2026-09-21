@@ -5,3 +5,7 @@ Metrics/BlockLength:
 Style/Documentation:
   Exclude:
     - 'spec/**/*'
+
+Metrics/ClassLength:
+  Max: 120
+  Exclude: []
