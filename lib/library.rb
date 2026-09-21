@@ -105,7 +105,10 @@ class Library
     File.write(path, data.to_yaml)
   end
 
+  SEED_PATH = File.expand_path('../data/seed.yml', __dir__)
+
   def self.load(path)
+    path = SEED_PATH unless File.exist?(path)
     library = new
     return library unless File.exist?(path)
 
@@ -137,14 +140,14 @@ class Library
   end
 
   def load_books(entries)
-    Array(entries).each { |h| library.add_loaded_book(Book.from_h(h)) }
+    Array(entries).each { |h| add_loaded_book(Book.from_h(h)) }
   end
 
   def load_members(entries)
-    Array(entries).each { |h| library.add_loaded_member(Member.from_h(h)) }
+    Array(entries).each { |h| add_loaded_member(Member.from_h(h)) }
   end
 
   def load_loans(entries)
-    Array(entries).each { |h| library.add_loan(Loan.from_h(h)) }
+    Array(entries).each { |h| add_loan(Loan.from_h(h)) }
   end
 end
