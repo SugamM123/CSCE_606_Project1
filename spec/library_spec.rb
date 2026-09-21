@@ -2,6 +2,7 @@
 
 require_relative '../lib/library'
 require_relative '../lib/loan'
+require 'tmpdir'
 
 RSpec.describe Library do
   describe '#add_book' do
@@ -192,6 +193,53 @@ RSpec.describe Library do
       expect do
         library.return_book(other_book.id)
       end.to raise_error(ArgumentError, /no active loan found/i)
+    end
+  end
+
+  describe '#save and .load' do
+    let(:tmp_path) { File.join(Dir.tmpdir, "library_test_#{Process.pid}.yml") }
+
+    after do
+      File.delete(tmp_path) if File.exist?(tmp_path)
+    end
+
+    it 'saves and reloads books, members, and loans correctly' do
+      library = described_class.new
+      library.add_book('Dune', 'Frank Herbert')
+      library.add_member('Alice', '1')
+      library.checkout_book(1, '1')
+
+      library.save(tmp_path)
+      reloaded = described_class.load(tmp_path)
+
+      expect(reloaded.books.size).to eq(1)
+      expect(reloaded.members.size).to eq(1)
+      expect(reloaded.loans.size).to eq(1)
+      expect(reloaded.books.first.title).to eq('Dune')
+    end
+
+    it 'preserves a returned loan status and return_date through save/load' do
+      library = described_class.new
+      library.add_book('Dune', 'Frank Herbert')
+      library.add_member('Alice', '1')
+      library.checkout_book(1, '1')
+      library.return_book(1)
+
+      library.save(tmp_path)
+      reloaded = described_class.load(tmp_path)
+
+      reloaded_loan = reloaded.loans.first
+      expect(reloaded_loan.status).to eq('returned')
+      expect(reloaded_loan.return_date).not_to be_nil
+    end
+
+    it 'falls back to seed data when the given path does not exist' do
+      missing_path = File.join(Dir.tmpdir, "does_not_exist_#{Process.pid}.yml")
+
+      library = described_class.load(missing_path)
+
+      expect(library.books).not_to be_empty
+      expect(library.members).not_to be_empty
     end
   end
 end
