@@ -67,27 +67,27 @@
 ### 8. Feature: List all checked-out books with due dates (2 pts)
 - **User Story**: As a librarian, I want to list all currently checked-out books with due dates so that I can track outstanding loans.
 - **Acceptance Criteria**:
-  - [ ] Filter loans for active status.
-  - [ ] Display formatted list showing book title, borrower ID/name, and due date.
-  - [ ] Indicate overdue status if due date has passed.
+  - [x] Filter loans for active status.
+  - [x] Display formatted list showing book title, borrower ID/name, and due date.
+  - [x] Indicate overdue status if due date has passed.
 
 ---
 
 ### 9. Infrastructure: Persist catalog, member, and loan data to YAML (3 pts)
 - **User Story**: As a developer, I want to persist catalog/member/loan data to a YAML file so that data survives between sessions.
 - **Acceptance Criteria**:
-  - [ ] Load system state from YAML file on program start.
-  - [ ] Serialize and save all data to YAML on record updates or app exit.
-  - [ ] Gracefully handle or initialize file if YAML file does not exist on first run.
+  - [x] Load system state from YAML file on program start.
+  - [x] Serialize and save all data to YAML on record updates or app exit.
+  - [x] Gracefully handle or initialize file if YAML file does not exist on first run.
 
 ---
 
 ### 10. Refactor: Input validation and defensive error handling (2 pts)
 - **User Story**: As a developer, I want input validation and error handling on core actions so that invalid input doesn't crash the app or corrupt data.
 - **Acceptance Criteria**:
-  - [ ] Validate non-empty inputs, numeric constraints, and date formatting.
-  - [ ] Catch input exceptions and invalid lookup IDs without crashing the CLI.
-  - [ ] Print helpful error messages and prompt user to retry.
+  - [x] Validate non-empty inputs, numeric constraints, and date formatting.
+  - [x] Catch input exceptions and invalid lookup IDs without crashing the CLI.
+  - [x] Print helpful error messages and prompt user to retry.
 
 ---
 
