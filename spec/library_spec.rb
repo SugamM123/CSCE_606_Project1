@@ -194,4 +194,24 @@ RSpec.describe Library do
       end.to raise_error(ArgumentError, /no active loan found/i)
     end
   end
+
+  describe '#active_loans' do
+    it 'returns only loans with active status' do
+      library = described_class.new
+      library.add_book('Dune', 'Frank Herbert')
+      library.add_book('1984', 'George Orwell')
+      library.add_member('Alice', '1')
+      library.checkout_book(1, '1')
+      library.checkout_book(2, '1')
+      library.return_book(1)
+
+      expect(library.active_loans.size).to eq(1)
+      expect(library.active_loans.first.book_id).to eq(2)
+    end
+
+    it 'returns an empty array when there are no loans' do
+      library = described_class.new
+      expect(library.active_loans).to eq([])
+    end
+  end
 end
