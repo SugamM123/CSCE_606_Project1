@@ -11,7 +11,7 @@
 | 10 | Feature: Check in (return) a book | 2 | Sugam | Done |
 | 11 | Feature: Search catalog by title or author | 2 | Sugam | Todo |
 | 12 | Feature: List all checked-out books with due dates | 2 | Jason | Todo |
-| 13 | Infrastructure: Persist catalog, member, and loan data to YAML | 3 | Jason | Todo |
+| 13 | Infrastructure: Persist catalog, member, and loan data to YAML | 3 | Jason | In Review |
 | 14 | Refactor: Input validation and defensive error handling | 2 | Jason | Todo |
 | 15 | Testing: Automated test suite for core features | 3 | Sugam | Todo |
 | 24 | Docs: Add class-level documentation comments to Book and Member | 0.5 | Sugam | Todo |
