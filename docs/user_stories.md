@@ -58,9 +58,9 @@
 ### 7. Feature: Search catalog by title or author (2 pts)
 - **User Story**: As a librarian, I want to search the catalog by title or author so that I can quickly find a book.
 - **Acceptance Criteria**:
-  - [ ] Case-insensitive partial matching on book title and author.
-  - [ ] Display matching results with IDs, author, title, and current availability status.
-  - [ ] Display friendly message when zero matches are found.
+  - [x] Case-insensitive partial matching on book title and author.
+  - [x] Display matching results with IDs, author, title, and current availability status.
+  - [x] Display friendly message when zero matches are found.
 
 ---
 
