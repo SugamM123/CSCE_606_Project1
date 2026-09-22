@@ -20,4 +20,4 @@
 | 22 | Refactor: Simplify Loan#initialize (AbcSize/complexity) | 2 | Sugam | Todo |
 | 28 | Infrastructure: Seed sample data for testing | 2 | Sugam | Done |
 
-**Total Points**: 33.5 (Jason: 14.5, Sugam: 19)
+**Total Points**: 33.5 (Jason: 16.5, Sugam: 17)
