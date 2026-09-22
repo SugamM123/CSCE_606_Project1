@@ -10,9 +10,9 @@
 | 9 | Feature: Check out a book to a member | 3 | Jason | Done |
 | 10 | Feature: Check in (return) a book | 2 | Sugam | Done |
 | 11 | Feature: Search catalog by title or author | 2 | Sugam | Todo |
-| 12 | Feature: List all checked-out books with due dates | 2 | Jason | Todo |
+| 12 | Feature: List all checked-out books with due dates | 2 | Jason | In Review |
 | 13 | Infrastructure: Persist catalog, member, and loan data to YAML | 3 | Jason | In Review |
-| 14 | Refactor: Input validation and defensive error handling | 2 | Jason | Todo |
+| 14 | Refactor: Input validation and defensive error handling | 2 | Jason | In Review |
 | 15 | Testing: Automated test suite for core features | 3 | Sugam | Todo |
 | 24 | Docs: Add class-level documentation comments to Book and Member | 0.5 | Sugam | Todo |
 | 21 | Refactor: Rename camelCase methods/attrs to snake_case in Book, Loan, Member | 1.5 | Sugam | Todo |
@@ -20,4 +20,4 @@
 | 22 | Refactor: Simplify Loan#initialize (AbcSize/complexity) | 2 | Sugam | Todo |
 | 28 | Infrastructure: Seed sample data for testing | 2 | Sugam | Done |
 
-**Total Points**: 33.5 (Jason: 15.5, Sugam: 18)
+**Total Points**: 33.5 (Jason: 14.5, Sugam: 19)
