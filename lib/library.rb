@@ -33,6 +33,15 @@ class Library
     end
   end
 
+  def search_books(query)
+    return [] if query.nil? || query.strip.empty?
+
+    normalized = query.strip.downcase
+    @books.select do |book|
+      book.title.downcase.include?(normalized) || book.author.downcase.include?(normalized)
+    end
+  end
+
   def add_member(name, id)
     # check for duplicate member ID
     raise ArgumentError, "Member with ID #{id} already exists" if find_member(id)

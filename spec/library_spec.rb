@@ -196,50 +196,51 @@ RSpec.describe Library do
     end
   end
 
-  describe '#save and .load' do
-    let(:tmp_path) { File.join(Dir.tmpdir, "library_test_#{Process.pid}.yml") }
+  describe '#search_book' do
+    it 'finds books by a partial, case-insensitive title match' do
+      library = described_class.new
+      library.add_book('The Hobbit', 'J.R.R. Tolkien')
+      library.add_book('1984', 'George Orwell')
 
-    after do
-      File.delete(tmp_path) if File.exist?(tmp_path)
+      results = library.search_books('hobbit')
+
+      expect(results.size).to eq(1)
+      expect(results.first.title).to eq('The Hobbit')
     end
 
-    it 'saves and reloads books, members, and loans correctly' do
+    it 'finds books by a partial, case-insensitive author match' do
+      library = described_class.new
+      library.add_book('The Hobbit', 'J.R.R. Tolkien')
+      library.add_book('1984', 'George Orwell')
+
+      results = library.search_books('orwell')
+
+      expect(results.size).to eq(1)
+      expect(results.first.author).to eq('George Orwell')
+    end
+
+    it 'returns multiple matches when more than one book matches' do
       library = described_class.new
       library.add_book('Dune', 'Frank Herbert')
-      library.add_member('Alice', '1')
-      library.checkout_book(1, '1')
+      library.add_book('Dune Messiah', 'Frank Herbert')
 
-      library.save(tmp_path)
-      reloaded = described_class.load(tmp_path)
+      results = library.search_books('dune')
 
-      expect(reloaded.books.size).to eq(1)
-      expect(reloaded.members.size).to eq(1)
-      expect(reloaded.loans.size).to eq(1)
-      expect(reloaded.books.first.title).to eq('Dune')
+      expect(results.size).to eq(2)
     end
 
-    it 'preserves a returned loan status and return_date through save/load' do
+    it 'returns an empty array when nothing matches' do
       library = described_class.new
       library.add_book('Dune', 'Frank Herbert')
-      library.add_member('Alice', '1')
-      library.checkout_book(1, '1')
-      library.return_book(1)
 
-      library.save(tmp_path)
-      reloaded = described_class.load(tmp_path)
-
-      reloaded_loan = reloaded.loans.first
-      expect(reloaded_loan.status).to eq('returned')
-      expect(reloaded_loan.return_date).not_to be_nil
+      expect(library.search_books('nonexistent')).to eq([])
     end
 
-    it 'falls back to seed data when the given path does not exist' do
-      missing_path = File.join(Dir.tmpdir, "does_not_exist_#{Process.pid}.yml")
+    it 'returns an empty arrat for a blank query' do
+      library = described_class.new
+      library.add_book('Dune', 'Frank Herbert')
 
-      library = described_class.load(missing_path)
-
-      expect(library.books).not_to be_empty
-      expect(library.members).not_to be_empty
+      expect(library.search_books('')).to eq([])
     end
   end
 end

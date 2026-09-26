@@ -102,7 +102,25 @@ class Cli
   end
 
   def search_catalog
-    @output.puts '[Search not yet implemented - waiting on Library class]'
+    query = prompt('Search (title or author): ')
+    return blank_search_message if query.nil? || query.strip.empty?
+
+    results = @library.search_books(query)
+
+    if results.empty?
+      @output.puts "No books found matching '#{query}'."
+      return
+    end
+
+    results.each { |book| @output.puts format_search_result(book) }
+  end
+
+  def format_search_result(book)
+    "#{book.title} by #{book.author} (ID: #{book.id}) - #{book.status}"
+  end
+
+  def blank_search_message
+    @output.puts 'Please enter a search term.'
   end
 
   def list_checked_out
