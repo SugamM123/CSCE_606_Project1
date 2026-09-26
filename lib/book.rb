@@ -25,17 +25,17 @@ class Book
     status == STATUS_AVAILABLE
   end
 
-  def checkedOut?
+  def checked_out?
     status == STATUS_CHECKED_OUT
   end
-  alias checked_out? checkedOut?
+  alias checked_out? checked_out?
 
   # isbn and id support
   alias isbn id
   alias isbn= id=
 
   # hash formattng
-  def toHash
+  def to_hash
     {
       'id' => id,
       'title' => title,
@@ -43,10 +43,10 @@ class Book
       'status' => status
     }
   end
-  alias to_h toHash
+  alias to_h to_hash
 
   ## build instance
-  def self.fromHash(hash)
+  def self.from_hash(hash)
     return nil unless hash
 
     new(
@@ -56,7 +56,7 @@ class Book
       status: hash['status'] || hash[:status] || STATUS_AVAILABLE
     )
   end
-  singleton_class.alias_method :from_h, :fromHash
+  singleton_class.alias_method :from_h, :from_hash
 
   # comparing book attributes
   def ==(other)

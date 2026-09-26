@@ -14,16 +14,16 @@ class Member
   end
 
   # member to hash
-  def toHash
+  def to_hash
     {
       'id' => id,
       'name' => name
     }
   end
-  alias to_h toHash
+  alias to_h to_hash
 
   # builds member from hash
-  def self.fromHash(hash)
+  def self.from_hash(hash)
     return nil unless hash
 
     new(
@@ -31,7 +31,7 @@ class Member
       name: hash['name'] || hash[:name]
     )
   end
-  singleton_class.alias_method :from_h, :fromHash
+  singleton_class.alias_method :from_h, :from_hash
 
   def ==(other)
     other.is_a?(Member) &&
