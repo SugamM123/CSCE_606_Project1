@@ -16,8 +16,9 @@
 | 15 | Testing: Automated test suite for core features | 3 | Sugam | Todo |
 | 24 | Docs: Add class-level documentation comments to Book and Member | 0.5 | Sugam | Todo |
 | 21 | Refactor: Rename camelCase methods/attrs to snake_case in Book, Loan, Member | 1.5 | Sugam | Done |
-| 23 | Refactor: Simplify Book.fromHash and Loan.fromHash complexity | 1 | Sugam | Todo |
+| 23 | Refactor: Simplify Book.fromHash and Loan.fromHash complexity | 1 | Sugam | Done |
 | 22 | Refactor: Simplify Loan#initialize (AbcSize/complexity) | 2 | Sugam | Done |
 | 28 | Infrastructure: Seed sample data for testing | 2 | Sugam | Done |
+| 38 | Chore: Bump RuboCop AbcSize/MethodLength thresholds for Loan#== and Book#initialize | 0.25 | Jason | In Review |
 
-**Total Points**: 33.5 (Jason: 16.5, Sugam: 17)
+**Total Points**: 33.75 (Jason: 16.75, Sugam: 17)
