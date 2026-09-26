@@ -94,6 +94,26 @@ RSpec.describe Cli do
 
       expect(output).to include('Error: Book with ID 999 not found')
     end
+
+    it 'lists checked-out books with the borrower and due date' do
+      library = Library.new
+      library.add_book('Dune', 'Frank Herbert')
+      library.add_member('Alice', '1')
+      library.checkout_book(1, '1')
+
+      output = run_cli_with_library("6\n7\n", library)
+
+      expect(output).to include('Dune')
+      expect(output).to include('Alice')
+    end
+
+    it 'shows a message when no books are checked out' do
+      library = Library.new
+
+      output = run_cli_with_library("6\n7\n", library)
+
+      expect(output).to include('No books are currently checked out.')
+    end
   end
 
   describe 'exit option (happy path)' do

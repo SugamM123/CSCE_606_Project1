@@ -124,7 +124,21 @@ class Cli
   end
 
   def list_checked_out
-    @output.puts '[List checked-out not yet implemented - waiting on Library class]'
+    active_loans = @library.active_loans
+
+    if active_loans.empty?
+      @output.puts 'No books are currently checked out.'
+      return
+    end
+
+    active_loans.each { |loan| @output.puts format_loan_line(loan) }
+  end
+
+  def format_loan_line(loan)
+    book = @library.find_book(loan.book_id)
+    member = @library.find_member(loan.member_id)
+    overdue_flag = loan.overdue? ? ' (OVERDUE)' : ''
+    "#{book.title} - #{member.name} (ID: #{member.id}) - Due: #{loan.due_date}#{overdue_flag}"
   end
 
   def exit_app

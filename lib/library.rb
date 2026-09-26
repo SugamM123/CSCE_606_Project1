@@ -88,6 +88,10 @@ class Library
     end
   end
 
+  def active_loans
+    @loans.select(&:active?)
+  end
+
   def return_book(book_id, return_date = Date.today.to_s)
     loan = find_active_loan(book_id)
     raise ArgumentError, "No active loan found for book ID #{book_id}" if loan.nil?
