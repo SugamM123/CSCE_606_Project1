@@ -2,6 +2,7 @@
 
 require_relative '../lib/library'
 require_relative '../lib/loan'
+require 'tmpdir'
 
 RSpec.describe Library do
   describe '#add_book' do
@@ -212,6 +213,54 @@ RSpec.describe Library do
     it 'returns an empty array when there are no loans' do
       library = described_class.new
       expect(library.active_loans).to eq([])
+    end
+  end
+
+  describe '#search_book' do
+    it 'finds books by a partial, case-insensitive title match' do
+      library = described_class.new
+      library.add_book('The Hobbit', 'J.R.R. Tolkien')
+      library.add_book('1984', 'George Orwell')
+
+      results = library.search_books('hobbit')
+
+      expect(results.size).to eq(1)
+      expect(results.first.title).to eq('The Hobbit')
+    end
+
+    it 'finds books by a partial, case-insensitive author match' do
+      library = described_class.new
+      library.add_book('The Hobbit', 'J.R.R. Tolkien')
+      library.add_book('1984', 'George Orwell')
+
+      results = library.search_books('orwell')
+
+      expect(results.size).to eq(1)
+      expect(results.first.author).to eq('George Orwell')
+    end
+
+    it 'returns multiple matches when more than one book matches' do
+      library = described_class.new
+      library.add_book('Dune', 'Frank Herbert')
+      library.add_book('Dune Messiah', 'Frank Herbert')
+
+      results = library.search_books('dune')
+
+      expect(results.size).to eq(2)
+    end
+
+    it 'returns an empty array when nothing matches' do
+      library = described_class.new
+      library.add_book('Dune', 'Frank Herbert')
+
+      expect(library.search_books('nonexistent')).to eq([])
+    end
+
+    it 'returns an empty array for a blank query' do
+      library = described_class.new
+      library.add_book('Dune', 'Frank Herbert')
+
+      expect(library.search_books('')).to eq([])
     end
   end
 end

@@ -4,6 +4,7 @@ require 'date'
 require_relative 'book'
 require_relative 'member'
 require_relative 'loan'
+require 'yaml'
 
 # manages books and members
 class Library
@@ -29,6 +30,15 @@ class Library
   def find_book(id)
     @books.find do |book|
       book.id == id || book.id.to_s == id.to_s
+    end
+  end
+
+  def search_books(query)
+    return [] if query.nil? || query.strip.empty?
+
+    normalized = query.strip.downcase
+    @books.select do |book|
+      book.title.downcase.include?(normalized) || book.author.downcase.include?(normalized)
     end
   end
 
@@ -99,6 +109,40 @@ class Library
     @loans.dup
   end
 
+  def save(path)
+    data = {
+      'books' => @books.map(&:to_h),
+      'members' => @members.map(&:to_h),
+      'loans' => @loans.map(&:to_h)
+    }
+    File.write(path, data.to_yaml)
+  end
+
+  SEED_PATH = File.expand_path('../data/seed.yml', __dir__)
+
+  def self.load(path)
+    path = SEED_PATH unless File.exist?(path)
+    library = new
+    return library unless File.exist?(path)
+
+    data = YAML.safe_load_file(path, permitted_classes: [Symbol]) || {}
+    library.send(:load_books, data['books'])
+    library.send(:load_members, data['members'])
+    library.send(:load_loans, data['loans'])
+
+    library
+  end
+
+  def add_loaded_book(book)
+    @books << book
+    book
+  end
+
+  def add_loaded_member(member)
+    @members << member
+    member
+  end
+
   private
 
   def next_book_id
@@ -106,5 +150,17 @@ class Library
     return 1 if @books.empty?
 
     @books.map(&:id).max + 1
+  end
+
+  def load_books(entries)
+    Array(entries).each { |h| add_loaded_book(Book.from_h(h)) }
+  end
+
+  def load_members(entries)
+    Array(entries).each { |h| add_loaded_member(Member.from_h(h)) }
+  end
+
+  def load_loans(entries)
+    Array(entries).each { |h| add_loan(Loan.from_h(h)) }
   end
 end
