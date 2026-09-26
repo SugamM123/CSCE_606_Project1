@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
+require_relative 'hash_helper'
+
 class Member
+  extend HashHelper
   attr_accessor :id, :name
 
   def initialize(*args, **kwargs)
@@ -27,8 +30,8 @@ class Member
     return nil unless hash
 
     new(
-      id: hash['id'] || hash[:id],
-      name: hash['name'] || hash[:name]
+      id: fetch_key(hash, 'id', 'id'),
+      name: fetch_key(hash, 'name', 'name')
     )
   end
   singleton_class.alias_method :from_h, :from_hash

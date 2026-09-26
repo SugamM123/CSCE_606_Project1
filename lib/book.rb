@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
+require_relative 'hash_helper'
+
 class Book
+  extend HashHelper
   STATUS_AVAILABLE = 'available'
   STATUS_CHECKED_OUT = 'checked_out'
 
@@ -50,10 +53,10 @@ class Book
     return nil unless hash
 
     new(
-      id: hash['id'] || hash[:id] || hash['isbn'] || hash[:isbn],
-      title: hash['title'] || hash[:title],
-      author: hash['author'] || hash[:author],
-      status: hash['status'] || hash[:status] || STATUS_AVAILABLE
+      id: fetch_key(hash, 'id', 'isbn'),
+      title: fetch_key(hash, 'title', 'title'),
+      author: fetch_key(hash, 'author', 'author'),
+      status: fetch_key(hash, 'status', 'status') || STATUS_AVAILABLE
     )
   end
   singleton_class.alias_method :from_h, :from_hash

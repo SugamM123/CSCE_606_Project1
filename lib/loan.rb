@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 require 'date'
+require_relative 'hash_helper'
 
 # checkout records
 class Loan
+  extend HashHelper
   STATUS_ACTIVE = 'active'
   STATUS_RETURNED = 'returned'
 
@@ -93,11 +95,11 @@ class Loan
     return nil unless hash
 
     new(
-      book_id: hash['book_id'] || hash[:book_id],
-      member_id: hash['member_id'] || hash[:member_id],
-      due_date: hash['due_date'] || hash[:due_date],
-      status: hash['status'] || hash[:status] || STATUS_ACTIVE,
-      return_date: hash['return_date'] || hash[:return_date]
+      book_id: fetch_key(hash, 'bookId', 'book_id'),
+      member_id: fetch_key(hash, 'memberId', 'member_id'),
+      due_date: fetch_key(hash, 'dueDate', 'due_date'),
+      status: fetch_key(hash, 'status', 'status') || STATUS_ACTIVE,
+      return_date: fetch_key(hash, 'returnDate', 'return_date')
     )
   end
   singleton_class.alias_method :from_h, :from_hash
