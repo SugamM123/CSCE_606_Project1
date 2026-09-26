@@ -12,20 +12,7 @@ RSpec.describe Loan do
   let(:past_date) { (today - 5).to_s }
 
   describe 'initialization' do
-    it 'initializes with camelCase keyword arguments and default values' do
-      loan = Loan.new(book_id: 1, member_id: 101, due_date: two_weeks_later)
-      expect(loan.book_id).to eq(1)
-      expect(loan.member_id).to eq(101)
-      expect(loan.due_date).to eq(two_weeks_later)
-      expect(loan.book_id).to eq(1)
-      expect(loan.member_id).to eq(101)
-      expect(loan.due_date).to eq(two_weeks_later)
-      expect(loan.status).to eq('active')
-      expect(loan.return_date).to be_nil
-      expect(loan.return_date).to be_nil
-    end
-
-    it 'initializes with snake_case keyword arguments' do
+    it 'initializes with keyword arguments and default values' do
       loan = Loan.new(book_id: 1, member_id: 101, due_date: two_weeks_later)
       expect(loan.book_id).to eq(1)
       expect(loan.member_id).to eq(101)

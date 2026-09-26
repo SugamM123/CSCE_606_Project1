@@ -8,35 +8,52 @@ class Loan
   STATUS_RETURNED = 'returned'
 
   attr_accessor :book_id, :member_id, :due_date, :status, :return_date
-  alias book_id= book_id=
-  alias member_id member_id
-  alias member_id= member_id=
-  alias due_date due_date
-  alias due_date= due_date=
-  alias return_date return_date
-  alias return_date= return_date=
 
+  # handles positional and keyword args
+  # split his logic into separate helper methods to keep complexity low.
   def initialize(*args, **kwargs)
     if args.any?
-      @book_id = args[0].respond_to?(:id) ? args[0].id : args[0]
-      @member_id = args[1].respond_to?(:id) ? args[1].id : args[1]
-      @due_date = args[2]
-      @status = args[3] || STATUS_ACTIVE
-      @return_date = args[4]
+      init_from_args(args)
     else
-      # extract ID
-      # if a model instance was passed in, otherwise use raw ID
-      book_val = kwargs[:book_id] || kwargs[:book_id] || kwargs[:book]
-      @book_id = book_val.respond_to?(:id) ? book_val.id : book_val
-
-      member_val = kwargs[:member_id] || kwargs[:member_id] || kwargs[:member]
-      @member_id = member_val.respond_to?(:id) ? member_val.id : member_val
-
-      @due_date = kwargs[:due_date] || kwargs[:due_date]
-      @status = kwargs[:status] || STATUS_ACTIVE
-      @return_date = kwargs[:return_date] || kwargs[:return_date]
+      init_from_kwargs(kwargs)
     end
   end
+
+  private
+
+  # build from positional args
+  def init_from_args(args)
+    @book_id = extract_id(args[0])
+    @member_id = extract_id(args[1])
+    @due_date = args[2]
+    @status = args[3] || STATUS_ACTIVE
+    @return_date = args[4]
+  end
+
+  # build from keyword args
+  def init_from_kwargs(kwargs)
+    @book_id = extract_id(fetch_book_value(kwargs))
+    @member_id = extract_id(fetch_member_value(kwargs))
+    @due_date = kwargs[:due_date]
+    @status = kwargs[:status] || STATUS_ACTIVE
+    @return_date = kwargs[:return_date]
+  end
+
+  def fetch_book_value(kwargs)
+    kwargs[:book_id] || kwargs[:book]
+  end
+
+  def fetch_member_value(kwargs)
+    kwargs[:member_id] || kwargs[:member]
+  end
+
+  # extracts id if model object is passed
+  # otherwise uses raw id
+  def extract_id(value)
+    value.respond_to?(:id) ? value.id : value
+  end
+
+  public
 
   def active?
     status == STATUS_ACTIVE
@@ -62,10 +79,10 @@ class Loan
   # return hash format
   def to_hash
     {
-      'status' => status,
       'book_id' => book_id,
       'member_id' => member_id,
       'due_date' => due_date.to_s,
+      'status' => status,
       'return_date' => return_date&.to_s
     }
   end
