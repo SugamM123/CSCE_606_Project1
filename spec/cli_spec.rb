@@ -167,4 +167,31 @@ RSpec.describe Cli do
       expect { run_cli_with('') }.not_to raise_error
     end
   end
+
+  describe 'input validation (sad path)' do
+    it 'retries when a required field is left blank, then accepts valid input' do
+      output = run_cli_with("1\n\nThe Hobbit\nJ.R.R. Tolkien\n7\n")
+
+      expect(output).to include('Input cannot be blank. Please try again.')
+      expect(output).to include('Added: The Hobbit by J.R.R. Tolkien')
+    end
+
+    it 'gives up after 3 blank attempts and returns to the menu' do
+      output = run_cli_with("1\n\n\n\n7\n")
+
+      expect(output).to include('Too many invalid attempts. Returning to menu.')
+    end
+
+    it 'does not crash when an unexpected error occurs during an action' do
+      broken_library = Object.new
+      def broken_library.add_book(*)
+        raise 'unexpected failure'
+      end
+
+      output = run_cli_with_library("1\nTitle\nAuthor\n7\n", broken_library)
+
+      expect(output).to include('Something went wrong: unexpected failure')
+      expect(output).to include('Goodbye!')
+    end
+  end
 end

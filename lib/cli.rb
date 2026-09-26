@@ -44,6 +44,8 @@ class Cli
     return @output.puts('Invalid option, please try again.') unless action
 
     action.call
+  rescue StandardError => e
+    @output.puts "Something went wrong: #{e.message}"
   end
 
   def actions
@@ -63,21 +65,45 @@ class Cli
     @input.gets&.strip
   end
 
+  MAX_ATTEMPTS = 3
+
+  def prompt_required(label)
+    MAX_ATTEMPTS.times do
+      value = prompt(label)
+      return nil if value.nil? # input stream exhausted
+
+      return value unless value.empty?
+
+      @output.puts 'Input cannot be blank. Please try again.'
+    end
+
+    @output.puts 'Too many invalid attempts. Returning to menu.'
+    nil
+  end
+
   # --- Actions below are stubbed until the Library class exists ---
   #  Once Library is built, these will look roughly like:
   #     book = Book.new(id: next_id, title: title, author: author)
   #     @library.add_book(book)
 
   def add_book
-    title = prompt('Title: ')
-    author = prompt('Author: ')
+    title = prompt_required('Title: ')
+    return unless title
+
+    author = prompt_required('Author: ')
+    return unless author
+
     book = @library.add_book(title, author)
     @output.puts "Added: #{book.title} by #{book.author} (ID: #{book.id})"
   end
 
   def add_member
-    name = prompt('Name: ')
-    id = prompt('Member ID: ')
+    name = prompt_required('Name: ')
+    return unless name
+
+    id = prompt_required('Member ID: ')
+    return unless id
+
     member = @library.add_member(name, id)
     @output.puts "Added member: #{member.name} (ID: #{member.id})"
   rescue ArgumentError => e
@@ -85,8 +111,12 @@ class Cli
   end
 
   def checkout_book
-    book_id = prompt('Book ID: ')
-    member_id = prompt('Member ID: ')
+    book_id = prompt_required('Book ID: ')
+    return unless book_id
+
+    member_id = prompt_required('Member ID: ')
+    return unless member_id
+
     loan = @library.checkout_book(book_id, member_id)
     @output.puts "Checked out to member #{member_id}, due #{loan.due_date}"
   rescue ArgumentError => e
@@ -94,7 +124,9 @@ class Cli
   end
 
   def return_book
-    book_id = prompt('Book ID: ')
+    book_id = prompt_required('Book ID: ')
+    return unless book_id
+
     book = @library.return_book(book_id)
     @output.puts "Returned: #{book.title} (ID: #{book.id})"
   rescue ArgumentError => e
