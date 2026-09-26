@@ -122,10 +122,10 @@
 ### 14. Refactor: Simplify Loan#initialize (AbcSize/complexity) (2 pts)
 - **User Story**: As a developer, I want Loan#initialize simplified so that it passes RuboCop's complexity thresholds and is easier to maintain.
 - **Acceptance Criteria**:
-  - [ ] Reduce AbcSize below 17 (currently 34.37).
-  - [ ] Reduce cyclomatic/perceived complexity below their thresholds.
-  - [ ] Extract helper method(s) for resolving book/member id from object-or-raw-id inputs.
-  - [ ] Existing Loan specs still pass unchanged.
+  - [x] Reduce AbcSize below 17 (currently 34.37).
+  - [x] Reduce cyclomatic/perceived complexity below their thresholds.
+  - [x] Extract helper method(s) for resolving book/member id from object-or-raw-id inputs.
+  - [x] Existing Loan specs still pass unchanged.
 
 ---
 
