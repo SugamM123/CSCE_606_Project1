@@ -112,10 +112,10 @@
 ### 13. Refactor: Rename camelCase methods/attrs to snake_case in Book, Loan, Member (1.5 pts)
 - **User Story**: As a developer, I want method and attribute names to follow Ruby's snake_case convention so that the codebase passes RuboCop naming checks and reads idiomatically.
 - **Acceptance Criteria**:
-  - [ ] Rename `checkedOut?`, `toHash`, `fromHash` (and equivalents in Loan/Member) to snake_case.
-  - [ ] Rename `bookId`, `memberId`, `dueDate`, `returnDate` attributes to snake_case.
-  - [ ] Update all specs referencing the old names.
-  - [ ] Full test suite passes after rename.
+  - [x] Rename `checkedOut?`, `toHash`, `fromHash` (and equivalents in Loan/Member) to snake_case.
+  - [x] Rename `bookId`, `memberId`, `dueDate`, `returnDate` attributes to snake_case.
+  - [x] Update all specs referencing the old names.
+  - [x] Full test suite passes after rename.
 
 ---
 
