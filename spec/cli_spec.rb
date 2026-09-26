@@ -187,6 +187,7 @@ RSpec.describe Cli do
       def broken_library.add_book(*)
         raise 'unexpected failure'
       end
+      def broken_library.save(*); end
 
       output = run_cli_with_library("1\nTitle\nAuthor\n7\n", broken_library)
 

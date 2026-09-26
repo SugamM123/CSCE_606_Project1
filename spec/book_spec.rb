@@ -40,9 +40,9 @@ RSpec.describe Book do
       expect(book.checked_out?).to be false
     end
 
-    it 'returns true for checkedOut? when status is checked_out' do
+    it 'returns true for checked_out? when status is checked_out' do
       book = Book.new(id: 1, title: 'Test', author: 'Author', status: 'checked_out')
-      expect(book.checkedOut?).to be true
+      expect(book.checked_out?).to be true
       expect(book.checked_out?).to be true
       expect(book.available?).to be false
     end
@@ -51,20 +51,20 @@ RSpec.describe Book do
   describe 'serialization' do
     let(:book) { Book.new(id: 1, title: 'Design Patterns', author: 'Gang of Four', status: 'available') }
 
-    it 'serializes to a hash with toHash or to_h' do
+    it 'serializes to a hash with to_hash or to_h' do
       expected = {
         'id' => 1,
         'title' => 'Design Patterns',
         'author' => 'Gang of Four',
         'status' => 'available'
       }
-      expect(book.toHash).to eq(expected)
+      expect(book.to_hash).to eq(expected)
       expect(book.to_h).to eq(expected)
     end
 
-    it 'reconstructs a Book object from hash using fromHash or from_h' do
+    it 'reconstructs a Book object from hash using from_hash or from_h' do
       hash = { 'id' => 10, 'title' => 'Sample', 'author' => 'Author', 'status' => 'checked_out' }
-      reconstructed = Book.fromHash(hash)
+      reconstructed = Book.from_hash(hash)
       expect(reconstructed.id).to eq(10)
       expect(reconstructed.title).to eq('Sample')
       expect(reconstructed.author).to eq('Author')
