@@ -58,10 +58,22 @@ RSpec.describe Cli do
       expect(output).to include("Returned: The Hobbit (ID: #{book.id})")
     end
 
-    it 'routes option 5 to the search action' do
-      output = run_cli_with("5\n7\n")
+    it 'searches the catalog and shows matching results' do
+      library = Library.new
+      library.add_book('Dune', 'Frank Herbert')
 
-      expect(output).to include('[Search not yet implemented')
+      output = run_cli_with_library("5\nDune\n7\n", library)
+
+      expect(output).to include('Dune by Frank Herbert')
+    end
+
+    it 'shows a message when no books match the search' do
+      library = Library.new
+      library.add_book('Dune', 'Frank Herbert')
+
+      output = run_cli_with_library("5\nnonexistent\n7\n", library)
+
+      expect(output).to include("No books found matching 'nonexistent'.")
     end
 
     it 'checks out a book to a member' do
@@ -81,6 +93,26 @@ RSpec.describe Cli do
       output = run_cli_with_library("3\n999\n1\n7\n", library)
 
       expect(output).to include('Error: Book with ID 999 not found')
+    end
+
+    it 'lists checked-out books with the borrower and due date' do
+      library = Library.new
+      library.add_book('Dune', 'Frank Herbert')
+      library.add_member('Alice', '1')
+      library.checkout_book(1, '1')
+
+      output = run_cli_with_library("6\n7\n", library)
+
+      expect(output).to include('Dune')
+      expect(output).to include('Alice')
+    end
+
+    it 'shows a message when no books are checked out' do
+      library = Library.new
+
+      output = run_cli_with_library("6\n7\n", library)
+
+      expect(output).to include('No books are currently checked out.')
     end
   end
 
@@ -121,6 +153,12 @@ RSpec.describe Cli do
       output = run_cli_with("9\n7\n")
 
       expect(output.scan('==== Library Manager ====').size).to eq(2)
+    end
+
+    it 'shows a message when the search term is left blank' do
+      output = run_cli_with("5\n\n7\n")
+
+      expect(output).to include('Please enter a search term.')
     end
   end
 

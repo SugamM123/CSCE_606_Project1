@@ -6,7 +6,9 @@ require_relative 'loan'
 # Command-line interface for the Library Manager: displays the menu,
 # reads user input, and routes to the corresponding action.
 class Cli
-  def initialize(input: $stdin, output: $stdout, library: Library.new)
+  DATA_PATH = File.expand_path('../data/library.yml', __dir__)
+
+  def initialize(input: $stdin, output: $stdout, library: Library.load(DATA_PATH))
     @input = input
     @output = output
     @library = library
@@ -132,14 +134,47 @@ class Cli
   end
 
   def search_catalog
-    @output.puts '[Search not yet implemented - waiting on Library class]'
+    query = prompt('Search (title or author): ')
+    return blank_search_message if query.nil? || query.strip.empty?
+
+    results = @library.search_books(query)
+
+    if results.empty?
+      @output.puts "No books found matching '#{query}'."
+      return
+    end
+
+    results.each { |book| @output.puts format_search_result(book) }
+  end
+
+  def format_search_result(book)
+    "#{book.title} by #{book.author} (ID: #{book.id}) - #{book.status}"
+  end
+
+  def blank_search_message
+    @output.puts 'Please enter a search term.'
   end
 
   def list_checked_out
-    @output.puts '[List checked-out not yet implemented - waiting on Library class]'
+    active_loans = @library.active_loans
+
+    if active_loans.empty?
+      @output.puts 'No books are currently checked out.'
+      return
+    end
+
+    active_loans.each { |loan| @output.puts format_loan_line(loan) }
+  end
+
+  def format_loan_line(loan)
+    book = @library.find_book(loan.book_id)
+    member = @library.find_member(loan.member_id)
+    overdue_flag = loan.overdue? ? ' (OVERDUE)' : ''
+    "#{book.title} - #{member.name} (ID: #{member.id}) - Due: #{loan.due_date}#{overdue_flag}"
   end
 
   def exit_app
+    @library.save(DATA_PATH)
     @output.puts('Goodbye!')
     :exit
   end
