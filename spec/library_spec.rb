@@ -2,6 +2,7 @@
 
 require_relative '../lib/library'
 require_relative '../lib/loan'
+require 'tmpdir'
 
 RSpec.describe Library do
   describe '#add_book' do

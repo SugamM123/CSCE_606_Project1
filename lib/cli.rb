@@ -6,7 +6,9 @@ require_relative 'loan'
 # Command-line interface for the Library Manager: displays the menu,
 # reads user input, and routes to the corresponding action.
 class Cli
-  def initialize(input: $stdin, output: $stdout, library: Library.new)
+  DATA_PATH = File.expand_path('../data/library.yml', __dir__)
+
+  def initialize(input: $stdin, output: $stdout, library: Library.load(DATA_PATH))
     @input = input
     @output = output
     @library = library
@@ -126,6 +128,7 @@ class Cli
   end
 
   def exit_app
+    @library.save(DATA_PATH)
     @output.puts('Goodbye!')
     :exit
   end

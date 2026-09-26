@@ -9,7 +9,7 @@
 | 8 | Feature: Add a new member to system | 2 | Sugam | Done |
 | 9 | Feature: Check out a book to a member | 3 | Jason | Done |
 | 10 | Feature: Check in (return) a book | 2 | Sugam | Done |
-| 11 | Feature: Search catalog by title or author | 2 | Jason | In Progress |
+| 11 | Feature: Search catalog by title or author | 2 | Jason | In Review |
 | 12 | Feature: List all checked-out books with due dates | 2 | Jason | In Review |
 | 13 | Infrastructure: Persist catalog, member, and loan data to YAML | 3 | Jason | In Review |
 | 14 | Refactor: Input validation and defensive error handling | 2 | Jason | In Review |
