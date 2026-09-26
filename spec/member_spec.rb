@@ -21,18 +21,18 @@ RSpec.describe Member do
   describe 'serialization' do
     let(:member) { Member.new(id: 101, name: 'Alice Smith') }
 
-    it 'serializes to a hash with toHash or to_h' do
+    it 'serializes to a hash with to_hash or to_h' do
       expected = {
         'id' => 101,
         'name' => 'Alice Smith'
       }
-      expect(member.toHash).to eq(expected)
+      expect(member.to_hash).to eq(expected)
       expect(member.to_h).to eq(expected)
     end
 
-    it 'reconstructs a Member from a hash using fromHash or from_h' do
+    it 'reconstructs a Member from a hash using from_hash or from_h' do
       hash = { 'id' => 103, 'name' => 'Carol Williams' }
-      reconstructed = Member.fromHash(hash)
+      reconstructed = Member.from_hash(hash)
       expect(reconstructed.id).to eq(103)
       expect(reconstructed.name).to eq('Carol Williams')
       expect(Member.from_h(hash)).to eq(reconstructed)
