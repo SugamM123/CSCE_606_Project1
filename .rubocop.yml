@@ -9,3 +9,9 @@ Style/Documentation:
 Metrics/ClassLength:
   Max: 120
   Exclude: []
+
+Metrics/AbcSize:
+  Max: 19
+
+Metrics/MethodLength:
+  Max: 11
