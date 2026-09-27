@@ -94,9 +94,9 @@
 ### 11. Testing: Automated test suite for core features (3 pts)
 - **User Story**: As a developer, I want automated tests for each core feature so that we can verify behavior and catch regressions.
 - **Acceptance Criteria**:
-  - [ ] Test harness set up and executable from command line.
-  - [ ] Unit tests for Book, Member, and Loan models.
-  - [ ] Functional/integration tests for checkout, return, search, and YAML I/O.
+  - [x] Test harness set up and executable from command line.
+  - [x] Unit tests for Book, Member, and Loan models.
+  - [x] Functional/integration tests for checkout, return, search, and YAML I/O.
 
 ---
 
@@ -132,17 +132,17 @@
 ### 15. Refactor: Simplify Book.fromHash and Loan.fromHash complexity (1 pt)
 - **User Story**: As a developer, I want fromHash simplified so that it passes RuboCop's complexity thresholds.
 - **Acceptance Criteria**:
-  - [ ] Reduce cyclomatic/perceived complexity on both fromHash methods.
-  - [ ] Extract shared helper for checking multiple hash key variants (string/symbol/camelCase/snake_case).
-  - [ ] Existing serialization specs still pass.
+  - [x] Reduce cyclomatic/perceived complexity on both fromHash methods.
+  - [x] Extract shared helper for checking multiple hash key variants (string/symbol/camelCase/snake_case).
+  - [x] Existing serialization specs still pass.
 
 ---
 
 ### 16. Docs: Add class-level documentation comments to Book and Member (0.5 pts)
 - **User Story**: As a developer, I want top-level doc comments on Book and Member so that RuboCop's documentation check passes and the classes are self-explanatory.
 - **Acceptance Criteria**:
-  - [ ] Add one-line class comment to `Book`.
-  - [ ] Add one-line class comment to `Member`.
+  - [x] Add one-line class comment to `Book`.
+  - [x] Add one-line class comment to `Member`.
 
 ---
 
